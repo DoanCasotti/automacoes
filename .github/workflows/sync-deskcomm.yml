@@ -2,9 +2,9 @@ name: Sincronizar fork DeskcommCRM
 
 on:
   schedule:
-    # Quatro oportunidades por hora reduzem o impacto de uma rodada atrasada
-    # ou descartada pelo agendador do GitHub Actions.
-    - cron: '7,22,37,52 * * * *'
+    # A cada 3 dias (dias 1, 4, 7... do mes), 09:41 UTC. Minuto fora da hora
+    # cheia para fugir do pico do agendador do GitHub.
+    - cron: '41 9 */3 * *'
   workflow_dispatch:
 
 permissions:
