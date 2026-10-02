@@ -2,7 +2,9 @@ name: Sincronizar fork DeskcommCRM
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    # Quatro oportunidades por hora reduzem o impacto de uma rodada atrasada
+    # ou descartada pelo agendador do GitHub Actions.
+    - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -54,6 +56,13 @@ jobs:
             echo "::error::A main do fork possui commits proprios ou o original mudou o historico. Sincronizacao interrompida para preservar seu trabalho."
             exit 1
           fi
+          git fetch --no-tags --force git@github.com:DoanCasotti/DeskcommCRM.git main:refs/heads/verificacao
+          synced_sha=$(git rev-parse refs/heads/verificacao)
+          if [[ "$synced_sha" != "$source_sha" ]]; then
+            echo "::error::O push terminou, mas a main do fork ficou em $synced_sha; esperado: $source_sha."
+            exit 1
+          fi
+          echo "Fork confirmado no SHA do original: $synced_sha"
           printf 'sha=%s\n' "$source_sha" >> "$GITHUB_OUTPUT"
       - name: Registrar versao sincronizada
         shell: python
