@@ -12,7 +12,11 @@ Sincronizacao automatica de `DoanCasotti/DeskcommCRM`, branch `main`, com `melga
 
 ## Limites do agendamento
 
-GitHub Actions pode atrasar ou descartar execucoes agendadas em periodos de carga. As quatro oportunidades por hora reduzem a janela sem sincronizacao. Em repositorios publicos, agendamentos podem ser desativados apos 60 dias sem atividade. Os registros de novas versoes geram atividade real; se o original ficar parado por muito tempo, verifique a aba Actions e reative o workflow se necessario.
+GitHub Actions pode atrasar ou descartar execucoes agendadas em periodos de carga. As quatro oportunidades por hora reduzem a janela sem sincronizacao. Em repositorios publicos, agendamentos sao desativados apos 60 dias sem commit. Para isso nunca acontecer, o workflow faz um commit de manutencao em `status/deskcomm.json` quando o original fica mais de 30 dias sem mudar.
+
+A garantia: toda rodada verde termina com a `main` do fork no mesmo SHA da `main` do original (conferido depois do push). Rodada vermelha manda e-mail do GitHub. A unica causa esperada de vermelho e commit direto na `main` do fork — nunca commite nela; use branches.
+
+O GitHub Actions do proprio fork fica desligado (Settings > Actions): o fork e espelho, e cada sincronizacao rodaria o CI inteiro do original nele, com falhas e e-mails.
 
 ## Executar e acompanhar
 
