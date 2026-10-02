@@ -42,7 +42,7 @@ jobs:
           git init --bare "$work/repo.git"
           cd "$work/repo.git"
           git fetch --no-tags https://github.com/melgarafael/DeskcommCRM.git main:refs/heads/original
-          git fetch --no-tags https://github.com/DoanCasotti/DeskcommCRM.git main:refs/heads/fork
+          git fetch --no-tags git@github.com:DoanCasotti/DeskcommCRM.git main:refs/heads/fork
           source_sha=$(git rev-parse refs/heads/original)
           fork_sha=$(git rev-parse refs/heads/fork)
           if [[ "$source_sha" == "$fork_sha" ]]; then
