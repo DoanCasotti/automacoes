@@ -5,8 +5,6 @@ on:
     # A cada 3 dias (dias 1, 4, 7... do mes), 09:41 UTC. Minuto fora da hora
     # cheia para fugir do pico do agendador do GitHub.
     - cron: '41 9 */3 * *'
-    # TESTE TEMPORARIO - remover apos validar
-    - cron: '30 21 5 10 *'
   workflow_dispatch:
 
 permissions:
